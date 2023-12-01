@@ -17,6 +17,10 @@ import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.List;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 /**
  * JavaFX App
@@ -64,6 +68,13 @@ public class App extends Application {
                 connection.setRequestMethod("GET");
                 BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 String line = reader.readLine();
+
+                Gson gson = new Gson();
+                List<Superhuman> superhumanList = gson.fromJson(line, new TypeToken<List<Superhuman>>() {}.getType());
+
+                for (Superhuman superhuman : superhumanList) {
+                    System.out.println(superhuman);
+                }
                 System.out.println(line);
                 outputLabel.setText(line);
                 System.out.println(connection.getResponseCode());
