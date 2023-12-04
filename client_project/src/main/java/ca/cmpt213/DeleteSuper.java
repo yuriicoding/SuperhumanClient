@@ -47,6 +47,8 @@ public class DeleteSuper {
                 uriException.printStackTrace();
                 String error = "Incorrect server URL.";
                 AlertMessage.showAlert(error);
+            } finally {
+                deleteSuperField.clear();
             }
     }
 

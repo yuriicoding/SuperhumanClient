@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -20,6 +21,9 @@ public class SuperhumanApp extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+
+        Label menuHeader = new Label("Interaction Menu");
+        menuHeader.setStyle("-fx-font-size: 20px; -fx-font-weight : bold;");
 
         CheckBox idCheckBox = new CheckBox("Retrieve ID");
         idCheckBox.setSelected(true);
@@ -35,11 +39,11 @@ public class SuperhumanApp extends Application {
 
         Button getButton = new Button("Retrieve all superhumans");
 
-        Label findSuper = new Label("ID to find:");
+        Label findSuper = new Label("Specify ID to find:");
         TextField findSuperField = new TextField();
         Button findButton = new Button("Find");
 
-        Label deleteSuper = new Label("ID to delete:");
+        Label deleteSuper = new Label("Specify ID to delete:");
         TextField deleteSuperField = new TextField();
         Button deleteButton = new Button("Delete");
 
@@ -56,26 +60,32 @@ public class SuperhumanApp extends Application {
         menu_grid.setVgap(10);
         menu_grid.setPadding(new javafx.geometry.Insets(25, 25, 25, 25));
 
+        menu_grid.add(menuHeader, 0, 0);
+        menu_grid.add(addButton, 0, 1, 2, 1);
+        menu_grid.add(getButton, 0, 2, 2, 1);
+        menu_grid.add(idCheckBox, 0, 3, 2, 1);
+        menu_grid.add(nameCheckBox, 0, 4, 2, 1);
+        menu_grid.add(weightCheckBox, 0, 5, 2, 1);
+        menu_grid.add(heightCheckBox, 0, 6, 2, 1);
+        menu_grid.add(pictureURLCheckBox, 0, 7, 2, 1);
+        menu_grid.add(categoryCheckBox, 0, 8, 2, 1);
+        menu_grid.add(overallAbilityCheckBox, 0, 9, 2, 1);
+        menu_grid.add(findSuper, 0, 10, 2, 1);
+        menu_grid.add(findSuperField, 0, 11, 2, 1);
+        menu_grid.add(findButton, 0, 12, 2, 1);
+        menu_grid.add(deleteSuper, 0, 13, 2, 1);
+        menu_grid.add(deleteSuperField, 0, 14, 2, 1);
+        menu_grid.add(deleteButton, 0, 15, 2, 1);
 
-        menu_grid.add(addButton, 0, 0, 2, 1);
-        menu_grid.add(getButton, 0, 1, 2, 1);
-        
-        menu_grid.add(idCheckBox, 0, 2, 2, 1);
-        menu_grid.add(nameCheckBox, 0, 3, 2, 1);
-        menu_grid.add(weightCheckBox, 0, 4, 2, 1);
-        menu_grid.add(heightCheckBox, 0, 5, 2, 1);
-        menu_grid.add(pictureURLCheckBox, 0, 6, 2, 1);
-        menu_grid.add(categoryCheckBox, 0, 7, 2, 1);
-        menu_grid.add(overallAbilityCheckBox, 0, 8, 2, 1);
-        menu_grid.add(findSuper, 0, 9, 2, 1);
-        menu_grid.add(findSuperField, 0, 10, 2, 1);
-        menu_grid.add(findButton, 0, 11, 2, 1);
-        menu_grid.add(deleteSuper, 0, 12, 2, 1);
-        menu_grid.add(deleteSuperField, 0, 13, 2, 1);
-        menu_grid.add(deleteButton, 0, 14, 2, 1);
+        Line verticalLine = new Line();
+        verticalLine.setStartX(0);
+        verticalLine.setStartY(0);
+        verticalLine.setEndX(0);
+        verticalLine.setEndY(750);
         
 
-        HBox hbox = new HBox(20, menu_grid, profile_grid);
+        HBox hbox = new HBox(20, menu_grid, verticalLine,  profile_grid);
+
         Scene mainMenuScene = new Scene(hbox, 1000, 750);
 
         getButton.setOnAction(e -> {
@@ -104,7 +114,6 @@ public class SuperhumanApp extends Application {
         });
 
         stage.setScene(mainMenuScene);
-        stage.setResizable(false);
         stage.setTitle("Superhuman Database Management System");
         stage.show();
     }

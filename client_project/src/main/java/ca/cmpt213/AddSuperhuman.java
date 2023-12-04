@@ -120,6 +120,10 @@ public class AddSuperhuman {
                 System.out.println(connection.getResponseCode());
                 connection.disconnect();
                 data_sent = true;
+                if (connection.getResponseCode() == HttpURLConnection.HTTP_CREATED) {
+                    String message = "Successfully added new superhuman.";
+                    AlertMessage.showComplete(message);
+                }
             } catch (IOException ioException) {
                 data_sent = false;
                 ioException.printStackTrace();

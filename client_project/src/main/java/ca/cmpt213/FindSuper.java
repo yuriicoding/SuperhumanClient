@@ -21,8 +21,8 @@ import javafx.scene.layout.VBox;
 public class FindSuper {
 
     public static void setUpFindSuperBox(HBox init_scene, TextField findSuperField){
-        if (init_scene.getChildren().size() > 1) {
-            init_scene.getChildren().remove(1);
+        if (init_scene.getChildren().size() > 2) {
+            init_scene.getChildren().remove(2);
         }
 
         boolean ID_correct = checkID(findSuperField);
@@ -48,6 +48,10 @@ public class FindSuper {
                 }
                 System.out.println(connection.getResponseCode());
                 connection.disconnect();
+                if (connection.getResponseCode() == HttpURLConnection.HTTP_NOT_FOUND) {
+                    String error = "Requsted ID does not exist on server.";
+                    AlertMessage.showAlert(error);
+                }
 
             } catch (IOException ioException){
                 ioException.printStackTrace();
@@ -75,13 +79,21 @@ public class FindSuper {
         sImage.setImage(new Image(superhuman.getPictureURL()));
         sImage.setFitHeight(500);
         sImage.setFitWidth(350);
-        sName.setText(superhuman.getName());
-        sID.setText(String.valueOf(superhuman.getId()));
-        sWeight.setText(String.valueOf(superhuman.getWeight()));
-        sHeight.setText(String.valueOf(superhuman.getHeight()));
-        sCategory.setText(superhuman.getCategory());
-        sOverallAbility.setText(String.valueOf(superhuman.getOverallAbility()));
-        VBox superhumanCard = new VBox(5);
+        sName.setText("Name: " + superhuman.getName());
+        sID.setText(String.valueOf("ID: " + superhuman.getId()));
+        sWeight.setText(String.valueOf("Weight: " + superhuman.getWeight()));
+        sHeight.setText(String.valueOf("Height: " + superhuman.getHeight()));
+        sCategory.setText("Category: " + superhuman.getCategory());
+        sOverallAbility.setText(String.valueOf("Ability: " + superhuman.getOverallAbility()));
+        VBox superhumanCard = new VBox(10);
+        superhumanCard.setPadding(new javafx.geometry.Insets(10, 10, 10, 10));
+        superhumanCard.setMaxHeight(600);
+        superhumanCard.setStyle("-fx-background-color: lightgrey;");
+
+        Label[] superhumanData = {sID, sName, sWeight, sHeight, sCategory, sOverallAbility};
+        for (int i = 0; i < superhumanData.length; i++) {
+            superhumanData[i].setStyle("-fx-text-fill: black;");
+        }
 
         superhumanCard.getChildren().addAll(sImage, sName, sID, sWeight, sHeight, sCategory, sOverallAbility);
         hbox.getChildren().add(superhumanCard);
